@@ -4,6 +4,7 @@ const dbConfig = require("../config/dbConfig");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
+  dialectModule: require("mysql2"),
   operatorsAliases: false,
   port: 3306,
   logging: false,
