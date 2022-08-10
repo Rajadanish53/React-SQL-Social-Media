@@ -2,7 +2,7 @@ const db = require("../models");
 const bcrypt = require("bcryptjs");
 const Token = require("../services/Token");
 const ErrorHandler = require("../services/ErrorHandler");
-
+const jwt = require("jsonwebtoken");
 module.exports = {
   async createNewUser(req, res) {
     const { userName, email, password } = req.body;
@@ -20,8 +20,9 @@ module.exports = {
         db.user
           .create(finalModel)
           .then((newUser) => {
-            const token = Token.generateToken(newUser.dataValues);
-
+            // const token = Token.generateToken(newUser.dataValues);
+            const { id } = newUser.dataValues;
+            const token = jwt.sign({ id }, process.env.JWT_SECRET);
             res.status(201).send({ token });
           })
           .catch((err) => {
