@@ -26,9 +26,9 @@ module.exports = {
             res.status(201).send({ token });
           })
           .catch((err) => {
-            console.log(err);
+            // console.log(err);
             const error = ErrorHandler.MissingFields();
-            res.status(error.status).send(error.error);
+            res.status(error.status).send(err.message);
           });
       } else {
         const error = ErrorHandler.MissingFields(
